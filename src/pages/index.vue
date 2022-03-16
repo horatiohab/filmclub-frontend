@@ -1,7 +1,8 @@
 <template>
     <div class="flex pt-8">
+        <!-- <router-link to="/film/@test"> -->
         <div class="w-2/3">
-            <div class="flex overflow-hidden bg-gray-800 h-80 rounded-xl mr-8 mb-8" v-for="film in watchList" :key="film.id">
+            <router-link class="flex overflow-hidden bg-gray-800 h-80 rounded-xl mr-8 mb-8" v-for="film in watchList" :key="film.id" :to="`/film/${film._id}`">
 
                 <img class="" :src="`https://image.tmdb.org/t/p/w600_and_h900_bestv2${film.imgSRC}`" alt="">
 
@@ -18,8 +19,9 @@
 
 
 
-            </div>
+            </router-link>
         </div>
+        <!-- </router-link> -->
 
 
         <div class="w-1/3">
