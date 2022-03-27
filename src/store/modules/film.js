@@ -2,8 +2,7 @@ import axios from 'axios'
 
 const state = () => ({
     filmModal: false,
-    movieSearchList: null,
-    
+    movieSearchList: null,    
     genres: [],
     watchList: [],
     
@@ -36,12 +35,18 @@ const actions = {
     async searchFilm(context, data) {
         /** search films api request */        
         const apiKey = process.env.VITE_TMDB_API_KEY
+        const token = context.rootState.auth.token
         
         console.log(apiKey)
         console.log("apiKey :", apiKey)
         
         return await axios
-            .get(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${data.input}`, { headers: {"Content-Type": "application/json" } } )
+            .get(`https://filmclubenv.herokuapp.com/api/v1/tmdb/search?film=${data.input}`, { 
+                headers: {
+                    "Content-Type": "application/json", 
+                    "Authorization": `Bearer ${token}` 
+                } 
+            })
             .then(response => {
                 console.log(response)
                 context.commit("SET_MOVIE_SEARCH", response.data.results)
@@ -49,17 +54,18 @@ const actions = {
     },
 
     async getGenres(context, data) {
-        /** get genres api request */
-        const apiKey = process.env.VITE_TMDB_API_KEY
-
+        console.log("GET GENRES :")
         return await axios
-            .get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`, { headers: {"Content-Type": "application/json" } } )
+            .get("https://filmclubenv.herokuapp.com/api/v1/tmdb/genres", { 
+                headers: {
+                    "Content-Type": "application/json" 
+                } 
+            })
             .then(response => {
-                console.log("response asd: ", response.data.genres)
                 context.commit("SET_GENRES_LIST", response.data.genres)
             })
             .catch(err => {
-                console.log(err)
+                console.warn(err)
             })
     },
 

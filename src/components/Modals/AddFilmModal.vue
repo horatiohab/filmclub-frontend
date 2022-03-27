@@ -24,10 +24,6 @@
                                 </div>
                             </div>
 
-                            
-
-
-
                             <div class="relative my-5 text-white">
                                 <!-- <div> -->
                                     <!-- <div class="absolute bg-gradient-to-b from-transparent via-gray-800-1/2 to-gray-800 w-full h-full"></div> -->
@@ -43,7 +39,7 @@
                                         <div class="flex flex-wrap w-full text-sm py-1">
                                             <p>{{ selectedMovie.releaseData.split("-")[0] }}</p> 
                                             <span class="mx-2">|</span>
-                                            <p class="mr-1" v-for="genre in selectedMovie.genreIds" :key="genre.id">{{ genres.find(item => item.id == genre).name }}</p>
+                                            <p class="mr-1" v-for="genre in selectedMovie.genreIds" :key="genre.id">{{ genres.find(item => item.id == genre).name }}</p>npm 
                                             <!-- <span class="mx-2">|</span> -->
                                         </div>
                                         <p class="text-xs">{{ selectedMovie.description }}</p>
@@ -90,6 +86,9 @@
                 genres: this.$store.state.film.genres,
                 // starRating: 0,
             }
+        },
+        created () {
+            console.log("genres list :", this.genres)
         },
         methods: {
             async searchMovie(event) {
